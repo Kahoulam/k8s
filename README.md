@@ -15,7 +15,53 @@
 1. https://goo.gl/4yZVBK
 2. https://booming-cave-448.notion.site/111-2-Kubernetes-k8s-by-0fddc66afb4a424386e25a93d46734aa 
 3. https://www.youtube.com/watch?v=o6bxo0Oeg6o
+4. https://tree.rocks/kubernetes-with-multi-server-node-setup-on-ubuntu-server-280066e6b106
 
+
+sudo apk add kubeadm kubelet kubectl --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
+
+```
+sudo apt-get update
+apt-get install kmod -y
+lsmod | grep br_netfilter
+
+
+// sudo modprobe br_netfilter
+
+
+
+// sudo apt-get install netcat
+// nc 127.0.0.1 6443
+
+
+export VERSION=1.25
+lsb_release -a
+export OS=xUbuntu_22.04
+echo "deb [signed-by=/usr/share/keyrings/libcontainers-archive-keyring.gpg] https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /" |sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
+echo "deb [signed-by=/usr/share/keyrings/libcontainers-crio-archive-keyring.gpg] https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable:cri-o:$VERSION.list
+mkdir -p /usr/share/keyrings
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/Release.key | sudo gpg --dearmor -o /usr/share/keyrings/libcontainers-archive-keyring.gpg
+curl -L https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/$VERSION/$OS/Release.key | sudo gpg --dearmor -o /usr/share/keyrings/libcontainers-crio-archive-keyring.gpg
+sudo apt-get update
+sudo apt-get install cri-o cri-o-runc
+
+
+
+
+
+
+sudo apt-get install -y apt-transport-https ca-certificates curl
+sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubelet kubeadm kubectl
+sudo apt-mark hold kubelet kubeadm kubectl
+
+
+
+sudo kubeadm init
+sudo kubeadm init --ignore-preflight-errors=Swap
+```
 
 <!-- 
 ## Cluster
